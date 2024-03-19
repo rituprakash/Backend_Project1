@@ -1,0 +1,31 @@
+{% extends 'layout/app-layout.html' %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+
+<div class="container vh-100 d-flex align-items-center justify-content-center">
+  <div class="card bg-transparent border-0">
+    <div class="card-body">
+      <h1 class="card-title text-center">Welcome to MedStore !!!</h1><br>
+      {% if not_user.is_authenticated%}
+      <p style="text-align: center;">Now you can easily  manage your inventory here....</p>
+      {%endif%}
+      <div class="text-center mx-auto">
+      {% if user.is_authenticated %}
+      <div>
+        <p style="color: rgb(74, 59, 187);">Welcome, {{ user }}!! to your Medical Store Inventory</p><br><br>
+        <p>Now you can easily  manage your inventory here....</p>
+      </div>
+      {% else %}
+      <div>
+        <p> <a href="login/">Login</a> to continue...</p>
+        <p>Don't have an account? Please <a href="signup/">Signup...</a></p><br><br>
+      </div>
+      </div>
+      </div>
+      </div>
+    
+    {% endif %}
+  </div>
+
+{% endblock %}

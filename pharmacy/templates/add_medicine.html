@@ -1,0 +1,33 @@
+{% extends 'layout/app-layout.html'%}
+
+{% block title %}Add/Edit Medicine{% endblock %}
+
+{% block content %}
+    <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+        <div class="card bg-transparent border-0" style="width: 400px;">
+            <div class="card-header text-center">
+                <h2 class="mb-0 text-black">{% if medicine %}Edit{% else %}Add{% endif %} Medicine</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" action="" class="text-white">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ medicine.name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <input type="text" class="form-control" id="category" name="category" value="{{ medicine.category }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock:</label>
+                        <input type="number" class="form-control" id="stock" name="stock" value="{{ medicine.stock }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block">
+                        {% if medicine %}Update{% else %}Add{% endif %} Medicine
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'layout/app-layout.html' %}
+
+{% block title %}Medicines List{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-5 mt-4 text-center">MEDICINE LIST</h1>
+
+    <div class="row mb-4">
+        <!-- #Search Bar  -->
+        <div class="col-md-6">
+            <form method="get" action="{% url 'medicines_list' %}" class="form-inline">
+                <input type="text" name="search_query" placeholder="Search by name" class="form-control mr-2">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <!-- Add Medicine Button -->
+        <div class="col-md-6 text-right">
+            <a href="{% url 'add_medicine' %}" class="btn btn-success">Add New Medicine</a>
+        </div>
+    </div>
+
+    <!-- Medicine Table -->
+    {% if medicines %}
+    <table class="table table-bordered" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medicine in medicines %}
+                <tr>
+                    <td>{{ medicine.id }}</td>
+                    <td>{{ medicine.name }}</td>
+                    <td>{{ medicine.category }}</td>
+                    <td>{{ medicine.stock }}</td>
+                    <td>
+                        <a href="{% url 'edit_medicine' medicine.id %}" class="btn btn-success">Edit</a>
+                        <!-- Add a data-toggle attribute to trigger the modal -->
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ medicine.id }}">Delete</button>
+                    </td>
+                </tr>
+
+                <!-- Delete Modal for each medicine -->
+                <div class="modal fade" id="deleteModal{{ medicine.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ medicine.id }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form method="post" action="{% url 'delete_medicine' medicine.id %}">
+                                {% csrf_token %}
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel{{ medicine.id }}">Delete Medicine</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete {{ medicine.name }}?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color: red;">Sorry!!! No match found...</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
