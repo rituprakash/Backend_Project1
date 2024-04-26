@@ -1,3 +1,0 @@
-MedStore - A medical store management website
-
-This project is about a medical store management system that is powered by Django! Leveraging Django framework for seamless operations, with MySQL and PHPMyAdmin for efficient data management and administration. Users can securely sign up, log in, and perform a range of tasks effortlessly: adding new medicines to the inventory, listing available stocks for easy access, updating medicine details with precision, and deleting outdated entries for streamlined management...
